@@ -15,10 +15,11 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 **Out-of-scope Uses:** Operational users, Real-time transaction processing systems, End consumers / shoppers, Users expecting real-time personalization at scale, and Teams seeking compliance, fraud detection, or financial auditing solutions.
 
 ## Training Data
-**Dataset Name:** Titanic Training Data  
-**Number of Samples:** 891  
-**Features Used:** Passenger class, gender, age, fare, etc.  
-**Data Source:** [kaggle](https://www.kaggle.com/c/titanic/data?select=train.csv)
+**Dataset Name:** Online Retail Dataset  
+**Number of Samples:** The original dataset contains 541,909 rows. After the cleaning process—which includes removing duplicates and missing values—the notebook works with a processed set of 401,604 transactions.
+**Features Used:** InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, and Country
+**Engineered Features:** Year, Month, Day, Hour, DayOfWeek, IsWeekend, TotalAmount, BasketUniqueItems, CustProductDiversity, CustTotalSales, and Churn_Label
+**Data Source:** [UCI Machine Learning Repository](https://www.kaggle.com/c/titanic/data?select=train.csv](https://archive.ics.uci.edu/dataset/352/online+retail))
 
 ### Splitting the Data for logistic regression model
 The dataset was divided into training and validation data as follows:
