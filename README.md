@@ -41,16 +41,14 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 ## Training & Test Data
 
 **Training Data Percentage:** 70% of the customer-level dataset (the RFM data) was used as training data.
-
 **Testing Data Percentage:** The remaining 30% was reserved as a holdout test set to evaluate model performance.
 
-### Splitting & Model Training Methodology
+## Splitting & Model Training Methodology
+
 - The split was implemented using the train_test_split function from the sklearn library with a test_size parameter of 0.3. To address the severe class imbalance (where 62.3% of customers had churned), the split was performed with stratification on the churn label to ensure both the training and testing sets maintained the same proportion of churned vs. active customers.
 - This training data was used to fit a Logistic Regression model (with feature scaling) and a Random Forest classifier. Both models utilized balanced class weights to further account for the imbalance in the training labels.
 
 ## Model Details
-### Architecture  
-- This model card utilizes linear model such as **Logistic Regression**. As an alternative model **Random Forest** is used.  
 
 ### Evaluation Metrics  
 - AUC (Area Under the ROC Curve): Measures the model's ability to distinguish between positive and negative classes.
