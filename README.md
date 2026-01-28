@@ -12,13 +12,13 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 ## Intended Use
 **Purpose:** This project transforms raw e-commerce data into a decision-ready system by engineering customer behavior features, predicting churn risk, and evaluating retention strategies. It combines descriptive analytics, predictive modeling, and a Retrieval-Augmented Generation (RAG) layer, enabling users to query insights in natural language, all grounded in real customer data.  
 **Intended Users:** Marketing and CRM teams, Product and Growth Managers, Data Analysts and Data Scientists, and Business leaders and decision-makers.  
-**Out-of-scope Uses:** Operational users, Real-time transaction processing systems, End consumers / shoppers, Users expecting real-time personalization at scale, and Teams seeking compliance, fraud detection, or financial auditing solutions.
+**Out-of-scope Uses:** Operational users, Real-time transaction processing systems, End consumers / shoppers, Users expecting real-time personalization at scale, and Teams seeking compliance, fraud detection, or financial auditing solutions.  
 
 ## Dataset
 **Dataset Name:** Online Retail Dataset  
-**Number of Samples:** The original dataset contains 541,909 rows. After the cleaning process—which includes removing duplicates and missing values—the notebook works with a processed set of 401,604 transactions.
-**Features Used:** InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, and Country
-**Engineered Features:** Year, Month, Day, Hour, DayOfWeek, IsWeekend, TotalAmount, BasketUniqueItems, CustProductDiversity, CustTotalSales, and Churn_Label
+**Number of Samples:** The original dataset contains 541,909 rows. After the cleaning process—which includes removing duplicates and missing values—the notebook works with a processed set of 401,604 transactions.  
+**Features Used:** InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, and Country  
+**Engineered Features:** Year, Month, Day, Hour, DayOfWeek, IsWeekend, TotalAmount, BasketUniqueItems, CustProductDiversity, CustTotalSales, and Churn_Label  
 **Data Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/352/online+retail)
 
 ### Data Dictionary
