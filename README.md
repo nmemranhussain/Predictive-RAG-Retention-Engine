@@ -14,7 +14,7 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 **Intended Users:** Marketing and CRM teams, Product and Growth Managers, Data Analysts and Data Scientists, and Business leaders and decision-makers.  
 **Out-of-scope Uses:** Operational users, Real-time transaction processing systems, End consumers / shoppers, Users expecting real-time personalization at scale, and Teams seeking compliance, fraud detection, or financial auditing solutions.
 
-## Training Data
+## Dataset
 **Dataset Name:** Online Retail Dataset  
 **Number of Samples:** The original dataset contains 541,909 rows. After the cleaning process—which includes removing duplicates and missing values—the notebook works with a processed set of 401,604 transactions.
 **Features Used:** InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, and Country
@@ -38,17 +38,15 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 |Estimated_Reward	|Output	|Ratio	|The projected financial Return on Investment (ROI) for a specific retention action.|
 |Chosen_Action|	Input	|Nominal	|The specific retention strategy (e.g., 'sms', 'email', 'call+coupon') recommended for the customer.|
 
-## Test Data
+## Training & Test Data
 
-### Source of Test Data
-- The Titanic test dataset used in this model is sourced from [Kaggle](https://www.kaggle.com/c/titanic/data?select=gender_submission.csv).
+**Training Data Percentage:** 70% of the customer-level dataset (the RFM data) was used as training data.
 
-### Number of Rows in Test Data
-- **Number of rows in Test Data:** 418
+**Testing Data Percentage:** The remaining 30% was reserved as a holdout test set to evaluate model performance.
 
-### Differences Between Training and Test Data
-- The training data includes the target variable (Survived), allowing us to train and evaluate the model, while the test data lacks this target, so it’s used solely for generating predictions to assess model performance on unseen data.
-- All other feature columns are the same between the training and test datasets.
+### Splitting & Model Training Methodology
+- The split was implemented using the train_test_split function from the sklearn library with a test_size parameter of 0.3. To address the severe class imbalance (where 62.3% of customers had churned), the split was performed with stratification on the churn label to ensure both the training and testing sets maintained the same proportion of churned vs. active customers.
+- This training data was used to fit a Logistic Regression model (with feature scaling) and a Random Forest classifier. Both models utilized balanced class weights to further account for the imbalance in the training labels.
 
 ## Model Details
 ### Architecture  
