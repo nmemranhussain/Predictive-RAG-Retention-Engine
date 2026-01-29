@@ -38,28 +38,39 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 |Estimated_Reward	|Output	|Ratio	|The projected financial Return on Investment (ROI) for a specific retention action.|
 |Chosen_Action|	Input	|Nominal	|The specific retention strategy (e.g., 'sms', 'email', 'call+coupon') recommended for the customer.|
 
-## Training & Test Data
+### Training & Test Data
 
 **Training Data Percentage:** 70% of the customer-level dataset (the RFM data) was used as training data.
 **Testing Data Percentage:** The remaining 30% was reserved as a holdout test set to evaluate model performance.
 
-## Splitting & Model Training Methodology
+### Model Type
+- **Churn Classifier:** Logistic Regression and Random Forest.
+- **Recommendation Engine:** Contextual Bandit (LinUCB) for personalized retention actions.
+- **Conversational Layer:** Retrieval-Augmented Generation (RAG) using Gemini-2.5-flash and Gemini-embedding-001.
+  
+### Model Training Methodology
 
-- The split was implemented using the train_test_split function from the sklearn library with a test_size parameter of 0.3. To address the severe class imbalance (where 62.3% of customers had churned), the split was performed with stratification on the churn label to ensure both the training and testing sets maintained the same proportion of churned vs. active customers.
-- This training data was used to fit a Logistic Regression model (with feature scaling) and a Random Forest classifier. Both models utilized balanced class weights to further account for the imbalance in the training labels.
+This training data was used to fit a Logistic Regression model (with feature scaling) and a Random Forest classifier. Both models utilized balanced class weights to further account for the imbalance in the training labels.
 
 ## Model Details
 
 ### Evaluation Metrics  
-- AUC (Area Under the ROC Curve): Measures the model's ability to distinguish between positive and negative classes.
+- **Churn Prediction:** Accuracy, Precision, Recall, and F1-score (calculated using stratified test sets).
+- **Retention Policy:** Projected ROI and Average Reward per action.
+- **RAG System:** Groundedness and factual accuracy based strictly on provided context.
 
-### Final Values of Metrics for All Data using 'logistic regression' model:
+### Final Values of Metrics for All Data using **Logistic Regression** and **Random Forest** model:
 
-| Dataset     | AUC   | 
+| Model       | AUC   | 
 |-------------|-------|
-| Training    | 0.78  | 
-| Validation  | 0.80  |
-| Test        | 0.76  | 
+| Logistic Regression | 0.78  | 
+| Random Forest  | 0.80  |
+
+### Model Architecture & Programming
+- **Feature Engineering:** Conversion of raw transactional data into aggregated customer profiles including diversity of products purchased and weekend shopping flags.
+- **Vector Database:** ChromaDB for persistent storage and retrieval of semantic embeddings.
+- **RAG Workflow:** Embedding Model: models/gemini-embedding-001.
+- **Generative Model:** models/gemini-2.5-flash.
 
 ### Columns Used as Inputs in the Final Model
 The following columns were used as inputs (features) in the final model:
