@@ -16,7 +16,7 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 
 ## Business Problem & Solution
 **Business Problem:** Reducing Chunging rate, Improving ROI
-**Business Solution:** Understading Dataset, Predictive Modeling, Optimization (Customer Segmentation & EV), Dynamic Policy Optimization & RAG Chatbot, ROI Improvement, Future opportunity.
+**Business Solution:** Understading Dataset, Predictive Modeling & RAG, Optimization (Customer Segmentation & EV), ROI Improvement, Future opportunity.
 
 ## Understanding Dataset
 **Dataset Name & Source:** [Online Retail Dataset](https://archive.ics.uci.edu/dataset/352/online+retail)  
@@ -93,11 +93,6 @@ This training data was used to fit a Logistic Regression model (with feature sca
 |AvgBasketSpend	|0.08	|0.08|
 |ReturnRate	|-0.03|	0.03|
 
-
-### Retention Policy (ROI Analysis):
-- **Highest ROI Action:** 'call+coupon' (Average Reward: $3.74).
-- **Lowest ROI Action:** 'email' (Average Reward: $0.00).
-
 ### Model & Rag Architecture & Programming (With Version)
 - **Feature Engineering:** Conversion of raw transactional data into aggregated customer profiles including diversity of products purchased and weekend shopping flags.
 - **Vector Database:** ChromaDB (Version 0.6.3)for persistent storage and retrieval of semantic embeddings.
@@ -116,11 +111,34 @@ This training data was used to fit a Logistic Regression model (with feature sca
 - **Matplotlib:** 3.10.0,
 - **Streamlit:**	1.52.1
 
-##
+## Optimization 
+### Customer Segmentation
+Customers are segmented into three risk tiers based on predicted churn probability (Churn_Prob):
+- **High Risk:** Churn_Prob ≥ 0.60
+- **Medium Risk:** 0.40 ≤ Churn_Prob < 0.60
+- **Low Risk:** Churn_Prob < 0.40
 
+### Summary of Tiers (from churn_risk_tier_dashboard.csv):
 
-The following hyperparameters were used for the 'random forest' as an alternative model:
+|Risk_Tier	|Customers	|Avg_Prob	|Actual_ChurnRate	|Recency	|Frequency	|Monetary	|AvgBasketSpend	|ReturnRate	|Portfolio_%|
+|-----------|-----------|---------|-----------------|---------|-----------|---------|---------------|-----------|-----------|
+|High	|968	|0.681	|0.582	|113.780	|13.504	|227.532	|26.634	|0.049	|35.0|
+|Medium	|969	|0.514	|0.369	|47.953	|32.301	|523.030	|20.461	|0.023	|35.0|
+|Low	|832	|0.211	|0.141	|27.035	|133.429	|2316.738	|21.072	|0.025	|30.0|
 
+## ROI Improvement
+
+### Optimal Action Mix by Total EV (from risk_action.csv):
+
+- **Highest ROI Action:** 'call+coupon' (Average Reward: $3.74).
+- **Lowest ROI Action:** 'email' (Average Reward: $0.00).
+
+|Action	|Customers	|Total_Cost	|Total_IncGM	|Total_EV	|Avg_EV|
+|-------|-----------|-----------|-------------|---------|-------|
+|sms+coupon	|941	|1740.85	|6371.54	|4630.69	|4.92|
+|sms	|1690	|84.50	|4111.93	|4027.43	|2.38|
+|call+coupon	|27	|102.60	|270.88	|168.28	|6.23|
+|email	|70	|0.70	|3.14	|2.44	|0.03|
 
 ## Quantitative Analysis
 
