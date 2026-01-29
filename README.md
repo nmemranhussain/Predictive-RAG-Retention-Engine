@@ -15,39 +15,51 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 **Out-of-scope Uses:** Operational users, Real-time transaction processing systems, End consumers / shoppers, Users expecting real-time personalization at scale, and Teams seeking compliance, fraud detection, or financial auditing solutions.  
 
 ## Business Problem & Solution
-- **Business Problem:** Reducing Chunging rate, Improving ROI
-- **Business Solution:** Understading Dataset, Predictive Modeling, Optimization (Customer Segmentation & EV), Dynamic Policy Optimization & RAG Chatbot, 
+**Business Problem:** Reducing Chunging rate, Improving ROI
+**Business Solution:** Understading Dataset, Predictive Modeling, Optimization (Customer Segmentation & EV), Dynamic Policy Optimization & RAG Chatbot, ROI Improvement, Future opportunity.
 
 ## Understanding Dataset
-**Dataset Name:** Online Retail Dataset  
+**Dataset Name & Source:** [Online Retail Dataset](https://archive.ics.uci.edu/dataset/352/online+retail)  
 **Number of Samples:** The original dataset contains 541,909 rows. After the cleaning process—which includes removing duplicates and missing values—the notebook works with a processed set of 401,604 transactions.  
-**Features Used:** InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, and Country  
-**Engineered Features:** Year, Month, Day, Hour, DayOfWeek, IsWeekend, TotalAmount, BasketUniqueItems, CustProductDiversity, CustTotalSales, and Churn_Label  
-**Data Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/352/online+retail)
+**Original Features Used:** InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, and Country.
+**Engineered Features:** Year, Month, Day, Hour, DayOfWeek, IsWeekend, TotalAmount, Is_Return / Is_Cancelled, BasketUniqueItems, CustProductDiversity, CustTotalSales, Recency, Frequency, Monetary,
+**Target Feature:** Churn_Label
+**Unique Entries:** 4289 unique customers.
 
 ### Data Dictionary
 
 |Column Name	      |Modeling Role	|Measurement Level	|Description|
 |------------------|--------------|------------------|-----------|
-|CustomerID	       | ID	          |Nominal	          |Unique identifier assigned to each customer.|
-|Recency	          |Input	        |Interval	         |Number of days since the customer's last purchase relative to the dataset's reference date.|
-|Frequency	        |Input	        |Ratio	            |Total number of unique purchase transactions (invoices) made by the customer.|
-|Monetary	         |Input	        |Ratio	            |Total financial value of all successful purchases made by the customer.|
-|Churn_Label	 |Target	|Binary	|Classification where 1 indicates a "Churned" customer (inactive for >30 days) and 0 indicates "Not Churned".|
-|Country	|Input	|Nominal	|The country where the customer resides; used to analyze regional sales distribution.|
-|TotalAmount	|Input	|Ratio	|The calculated value of an individual transaction (Quantity × UnitPrice).|
-|BasketUniqueItems	|Input	|Ratio	|The number of distinct products contained within a single invoice.|
-|CustProductDiversity	|Input	|Ratio	|Total number of unique StockCodes purchased by a customer over their lifetime.|
-|IsWeekend	| Input	|Binary	|Flag indicating if a transaction occurred on a Saturday or Sunday.|
-|Estimated_Reward	|Output	|Ratio	|The projected financial Return on Investment (ROI) for a specific retention action.|
-|Chosen_Action|	Input	|Nominal	|The specific retention strategy (e.g., 'sms', 'email', 'call+coupon') recommended for the customer.|
+|InvoiceNo	|Metadata	|Nominal	|A unique 6-digit identifier for each transaction; used to calculate purchase frequency.|
+|StockCode	|Metadata	|Nominal	|A unique product identifier used to track specific items and product diversity.|
+|Description	|Metadata	|Nominal	|A text description of the product; primarily used for data inspection and RAG context.|
+|Quantity	|Input	|Ratio	|The number of items purchased in a transaction; used to calculate total sales and monetary value.|
+|InvoiceDate	|Metadata	|Interval	|The timestamp of the transaction, used to derive all time-based engineered features.|
+|UnitPrice	|Input	|Ratio	|The price per unit of the product; crucial for calculating total transaction value.|
+|CustomerID	|ID	|Nominal	|A unique identifier for each customer; used as the primary key for aggregating behavioral data.|
+|Country	|Input	|Nominal	|The geographic location of the customer; used to analyze market distribution and regional churn patterns.|
+|Year	|Metadata/Input	|Ordinal	|The year extracted from the InvoiceDate to identify long-term trends.|
+|Month	|Input	|Ordinal	|The month of the transaction; used to capture seasonal shopping behaviors.|
+|Day	|Input	|Ordinal	|The day of the month when the purchase occurred.|
+|Hour	|Input	|Ordinal	|The hour of the day, used to identify peak shopping times (e.g., morning vs. evening).|
+|DayOfWeek	|Input	|Ordinal	|The specific day (Monday-Sunday) used to analyze weekly purchase cycles.|
+|IsWeekend	|Input	|Binary	|A flag (1/0) indicating if the purchase happened on a Saturday or Sunday.|
+|TotalAmount	|Input	|Ratio	|The calculated total value of a transaction (Quantity × UnitPrice).|
+|Is_Return / Is_Cancelled	|Input	|Binary	|Flags identifying if a transaction was a return or a cancellation; used to compute return rates.|
+|BasketUniqueItems	|Input	|Ratio	|The number of distinct products (unique StockCodes) contained within a single invoice.|
+|CustProductDiversity	|Input	|Ratio	|The cumulative number of different products a customer has bought over time.|
+|CustTotalSales	|Input	|Ratio	|The total lifetime monetary value of all successful purchases made by the customer.|
+|Recency	|Input	|Ratio	|The number of days since the customer’s last purchase; a core feature for churn modeling.|
+|Frequency	|Input	|Ratio	|The total count of unique purchase transactions (orders) made by the customer.|
+|Monetary	|Input	|Ratio	|The total expenditure of the customer; used alongside Recency and Frequency to profile value.|
+|Churn_Label	|Target	|Binary	|The predicted variable; 1 indicates the customer has churned (inactive for >30 days), and 0 indicates they are active.|
 
 ### Training & Test Data
 
 **Training Data Percentage:** 70% of the customer-level dataset (the RFM data) was used as training data.  
 **Testing Data Percentage:** The remaining 30% was reserved as a holdout test set to evaluate model performance.
 
-## Model Details
+## Predictive Modeling Details
 
 ### Model Type
 - **Churn Classifier:** Logistic Regression and Random Forest.
@@ -59,42 +71,35 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 This training data was used to fit a Logistic Regression model (with feature scaling) and a Random Forest classifier. Both models utilized balanced class weights to further account for the imbalance in the training labels.
 
 ### Evaluation Metrics  
-- **Churn Prediction:** Accuracy, Precision, Recall, and F1-score (calculated using stratified test sets).
+- **Churn Prediction:** AUC, Precision, Recall, and F1-score (calculated using stratified test sets).
 - **Retention Policy:** Projected ROI and Average Reward per action.
 - **RAG System:** Groundedness and factual accuracy based strictly on provided context.
 
 ### Final Values of Metrics for All Data using **Logistic Regression** and **Random Forest** model:
 
-| Model       | AUC   | 
-|-------------|-------|
-| Logistic Regression | 0.723  | 
-| Random Forest  | 0.704  |
+| Model       | AUC   | Precision | Recall |F1-score|
+|-------------|-------|-----------|--------|--------|
+| Logistic Regression | 0.723  | 0.529 | 0.763 | 0.625 |
+| Random Forest| 0.704 | 0.559 | 0.442 | 0.494 |
 
-### Model Architecture & Programming
+### Retention Policy (ROI Analysis):
+
+- **Highest ROI Action:** 'call+coupon' (Average Reward: $3.74).
+- **Lowest ROI Action:** 'email' (Average Reward: $0.00).
+
+### Model & Rag Architecture & Programming
 - **Feature Engineering:** Conversion of raw transactional data into aggregated customer profiles including diversity of products purchased and weekend shopping flags.
 - **Vector Database:** ChromaDB for persistent storage and retrieval of semantic embeddings.
+- **Text Splitting Technology:** LangChain
 - **RAG Workflow:** Embedding Model: models/gemini-embedding-001.
 - **Generative Model:** models/gemini-2.5-flash.
 
-### Columns Used as Inputs in the Final Model
-The following columns were used as inputs (features) in the final model:
-- Pclass
-- Sex
-- Age
-- SibSp
-- Parch
-- Fare
-- Embarked
+- Knowledge Base Construction:
+- **Source 1:** Structured customer profiles (RFM + Predicted Policy) converted to natural language strings.
+- **Source 2:** Technical documentation and code snippets extracted directly from the processing notebook (E-commerce_1_1.ipynb).
+- **Vector Indexing:** Recursive character splitting into 1,000-character chunks with 200-character overlap for context preservation.
+- **Retrieval Mechanism:** Persistent ChromaDB store using cosine similarity of embeddings.
 
-### Column(s) Used as Target(s) in the Final Model
-- **Target Column:** Survived
-
-### Type of Models
-* **[Logistic Regression Classifier](https://github.com/nmemranhussain/titanic-ml-models/blob/main/Titanic_logistic%20(1).ipynb)**
-* **[Random Forest Classifier](https://github.com/nmemranhussain/titanic-ml-models/blob/main/Titanic_RF.ipynb)**
-
-### Software Used to Implement the Model
-- **Software:** Python (with libraries such as Pandas, Scikit-learn, seaborn & matplotlib)
 
 ### Version of the Modeling Software: 
 - **'pandas'**: '2.2.2',
@@ -103,21 +108,10 @@ The following columns were used as inputs (features) in the final model:
 - **'matplotlib'**: '3.8.4**
 
 ### Hyperparameters or Other Settings of the Model
-The following hyperparameters were used for the 'logistic regression' model:
-- **Solver:** lbfgs
-- **Maximum Iterations:** 100
-- **Regularization (C):** 1.0
-- **Features used in the model**: ['Pclass', 'Age', 'SibSp', 'Parch', 'Fare', 'Sex_male', 'Embarked_Q', 'Embarked_S']
-- **Target column**: Survived
-- **Model type**: Logistic Regression
-- **Hyperparameters**: Solver = lbfgs, Max iterations = 500, C = 1.0
-- **Software used**: scikit-learn sklearn.linear_model._logistic
+
 
 The following hyperparameters were used for the 'random forest' as an alternative model:
-- **Columns used as inputs**: ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked'], 
-- **Target column**: 'Survived',
-- **Type of model**: 'Random Forest Classifier',
-- **Software used**: 'scikit-learn',
+
 
 ## Quantitative Analysis
 
@@ -127,15 +121,5 @@ The following hyperparameters were used for the 'random forest' as an alternativ
 
 **Description**: Passengers in 1st class had the highest survival rate, followed by those in 2nd class. 3rd class passengers had the lowest survival rate.
 
-![Plot of Survival Rate Vs. Passenger Gender](SR_by_Gender.png) 
-
-**Description**: Females had a significantly higher survival rate than males, aligning with the negative coefficient for the "Sex" feature in the logistic regression model.
-
-![Plot of Survival Rate Vs. Passenger Age](SR_by_Age.png) 
-
-**Description**: Children (ages 0-12) had the highest survival rate, while seniors (ages 50-80) had the lowest. Young adults and adults had relatively similar survival rates, though slightly lower than children.
 
 ## Potential Impacts, Risks, and Uncertainties using Logistic Regression & Random Forest Model ##
-Logistic regression offers a powerful tool for classification tasks. However, it is crucial to acknowledge its limitations. The model assumes a linear relationship between features and the outcome, which could overlook complex patterns in the data. This can lead to biased predictions, particularly when dealing with sensitive attributes like gender or class. Additionally, the probabilistic nature of the output can be misinterpreted as deterministic, potentially leading to misinformed decisions. To mitigate these risks and promote responsible AI practices, this model development employed several strategies. First, the training data was thoroughly examined for potential disparities related to gender and class. Second, interpretability tools from libraries like PiML were used to analyze the model's decision-making process and its impact on different groups. By incorporating these responsible AI practices, we aimed to ensure fairer and more transparent outcomes from the logistic regression model.
-
-While random forests boast strong performance in classification tasks, they also present challenges. Their complex structure can be difficult to interpret, hindering explainability. Despite resilience to noise, random forests can still be susceptible to overfitting if not carefully tuned. Furthermore, biased training data can lead to unfair predictions. Additionally, their reliance on multiple decision trees can obscure the true influence of individual features, and their performance is sensitive to data quality and hyperparameter tuning. This can lead to unexpected patterns with potentially positive or negative consequences. Similar to the logistic regression model, responsible AI practices were prioritized during development. The training data was rigorously scrutinized for biases, particularly regarding gender and class. Tools from InterpretML were utilized to understand the model's behavior and its potential impact on protected groups. By fostering responsible AI throughout the development process, we aimed to ensure fairer and more interpretable predictions from the random forest model.
