@@ -43,6 +43,8 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 **Training Data Percentage:** 70% of the customer-level dataset (the RFM data) was used as training data.  
 **Testing Data Percentage:** The remaining 30% was reserved as a holdout test set to evaluate model performance.
 
+## Model Details
+
 ### Model Type
 - **Churn Classifier:** Logistic Regression and Random Forest.
 - **Recommendation Engine:** Contextual Bandit (LinUCB) for personalized retention actions.
@@ -51,8 +53,6 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 ### Model Training Methodology
 
 This training data was used to fit a Logistic Regression model (with feature scaling) and a Random Forest classifier. Both models utilized balanced class weights to further account for the imbalance in the training labels.
-
-## Model Details
 
 ### Evaluation Metrics  
 - **Churn Prediction:** Accuracy, Precision, Recall, and F1-score (calculated using stratified test sets).
