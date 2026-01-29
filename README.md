@@ -16,7 +16,7 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 
 ## Business Problem & Solution
 **Business Problem:** Reducing Chunging rate, Improving ROI
-**Business Solution:** Understading Dataset, Predictive Modeling & RAG, Optimization (Customer Segmentation & EV), ROI Improvement, Future opportunity.
+**Business Solution:** Understading Dataset, Modeling & RAG, Optimization (Customer Segmentation & EV), ROI Improvement, Future opportunity.
 
 ## Understanding Dataset
 **Dataset Name & Source:** [Online Retail Dataset](https://archive.ics.uci.edu/dataset/352/online+retail)  
@@ -59,7 +59,7 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 **Training Data Percentage:** 70% of the customer-level dataset (the RFM data) was used as training data.  
 **Testing Data Percentage:** The remaining 30% was reserved as a holdout test set to evaluate model performance.
 
-## Predictive Modeling Details
+## Modeling & RAG Details
 
 ### Model Type
 - **Churn Classifier:** Logistic Regression and Random Forest.
