@@ -60,7 +60,8 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 **Training Data Percentage:** 70% of the customer-level dataset (the RFM data) was used as training data.  
 **Testing Data Percentage:** The remaining 30% was reserved as a holdout test set to evaluate model performance.
 
-### **RAG Data Types Processed:** The knowledge base for this RAG system is constructed from the following primary data files and content:
+### **RAG Data Types Processed:** 
+The knowledge base for this RAG system is constructed from the following primary data files and content:
 - **`rfm.xls`:**Contains Recency, Frequency, and Monetary (RFM) metrics for customers.
 - **`contextual_policy_recommendations.xls`:** Provides specific retention action recommendations and estimated rewards for individual customers.
 - **`contextual_policy_summary.xls`:** Offers a summary of retention policies, including average ROI and customer volume per action.
