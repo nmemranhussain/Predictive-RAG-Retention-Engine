@@ -63,8 +63,8 @@ This training data was used to fit a Logistic Regression model (with feature sca
 
 | Model       | AUC   | 
 |-------------|-------|
-| Logistic Regression | 0.78  | 
-| Random Forest  | 0.80  |
+| Logistic Regression | 0.723  | 
+| Random Forest  | 0.704  |
 
 ### Model Architecture & Programming
 - **Feature Engineering:** Conversion of raw transactional data into aggregated customer profiles including diversity of products purchased and weekend shopping flags.
