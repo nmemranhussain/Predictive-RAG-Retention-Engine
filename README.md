@@ -165,7 +165,9 @@ Customers are segmented into three risk tiers based on predicted churn probabili
 - **sms+coupon** and **sms** are the primary drivers of **positive EV**, targeting the largest number of customers.**call+coupon** yields the highest Avg_EV per customer (£6.23) but is applied to a **small, high-value segment**. Targeting **High and Medium risk tiers is most profitable**.
 - **High-Risk customers** are **best targeted with sms+coupon (highest EV)**. **Medium-Risk customers** respond best to **sms**. **Low-Risk customers** should primarily receive **sms** or **email** (minimal cost, small positive EV).
   
-### Plots Related to Data or Final Model
+### Plots
+
+
  
 ![Plot of Survival Rate Vs. Passenger Class](SR_by_Class.png) 
 
