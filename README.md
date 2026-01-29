@@ -15,7 +15,7 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 **Out-of-scope Uses:** Operational users, Real-time transaction processing systems, End consumers / shoppers, Users expecting real-time personalization at scale, and Teams seeking compliance, fraud detection, or financial auditing solutions.  
 
 ## Business Problem & Solution
-**Business Problem:** Reducing Chunging rate, Improving ROI
+**Business Problem:** Reducing Chunging rate, Improving ROI  
 **Business Solution:** Understading Dataset, Modeling & RAG, Optimization (Customer Segmentation & EV), ROI Improvement, Future opportunity.
 
 ## Understanding Dataset
