@@ -120,6 +120,8 @@ Customers are segmented into three risk tiers based on predicted churn probabili
 
 ### Summary of Tiers (from churn_risk_tier_dashboard.csv):
 
+
+
 |Risk_Tier	|Customers	|Avg_Prob	|Actual_ChurnRate	|Recency	|Frequency	|Monetary	|AvgBasketSpend	|ReturnRate	|Portfolio_%|
 |-----------|-----------|---------|-----------------|---------|-----------|---------|---------------|-----------|-----------|
 |High	|968	|0.681	|0.582	|113.780	|13.504	|227.532	|26.634	|0.049	|35.0|
@@ -140,6 +142,9 @@ Customers are segmented into three risk tiers based on predicted churn probabili
 |call+coupon	|27	|102.60	|270.88	|168.28	|6.23|
 |email	|70	|0.70	|3.14	|2.44	|0.03|
 
+- **sms+coupon** and **sms** are the primary drivers of **positive EV**, targeting the largest number of customers.**call+coupon** yields the highest Avg_EV per customer (£6.23) but is applied to a **small, high-value segment**. Targeting **High and Medium risk tiers is most profitable**.
+- **High-Risk customers** are **best targeted with sms+coupon (highest EV)**. **Medium-Risk customers** respond best to **sms**. **Low-Risk customers** should primarily receive **sms** or **email** (minimal cost, small positive EV).
+  
 ## Quantitative Analysis
 
 ### Plots Related to Data or Final Model
@@ -149,4 +154,22 @@ Customers are segmented into three risk tiers based on predicted churn probabili
 **Description**: Passengers in 1st class had the highest survival rate, followed by those in 2nd class. 3rd class passengers had the lowest survival rate.
 
 
-## Potential Impacts, Risks, and Uncertainties using Logistic Regression & Random Forest Model ##
+## Limitation, Biases & Future Work
+
+### Limitations and Biases
+- **Data Timeliness:** Based on data from 2010-2011; customer behavior patterns may have evolved.
+- **Churn Definition:** A 90-day inactivity window might not be universally applicable.
+- **Generalizability:** Model trained on a single dataset; performance might vary with different customer bases or industries.
+- **Feature Completeness:** Only RFM and derived features are used; external factors (e.g., marketing spend, competitor actions, customer service interactions) are not included.
+- **Model Simplification:** Logistic Regression is a linear model and may not capture highly complex non-linear relationships, though it performs well here.
+_ **Cost/Uplift Estimates:** The ROI simulation relies on estimated costs, redemption rates, and uplift values, which should be validated with real-world A/B testing.
+
+### Future Work
+- **Model Retraining:** Regularly retrain the model with fresh data to capture evolving customer behavior.
+- **Feature Expansion:** Incorporate more granular data (e.g., product categories, website activity, customer support interactions) for richer context.
+- **Dynamic Churn Definition:** Explore adaptive churn definitions based on product lifecycle or customer segments.
+- **A/B Testing:** Conduct controlled experiments to validate the estimated costs and effectiveness of retention actions.
+- **Advanced Modeling:** Investigate more complex models (e.g., XGBoost, neural networks) if performance gains justify the increased complexity and interpretability challenges.
+- **LinUCB Tuning:** Tune the alpha parameter and refine reward engineering for the contextual bandit to achieve a more balanced and cost-effective marketing mix.
+
+
