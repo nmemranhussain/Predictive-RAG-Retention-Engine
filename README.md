@@ -86,12 +86,17 @@ This training data was used to fit a **Logistic Regression** model (with feature
 - **Retention Policy:** Projected ROI and Average Reward per action.
 - **RAG System:** Groundedness and factual accuracy based strictly on provided context.
 
-### Final Values of Metrics for All Data using **Logistic Regression** and **Random Forest** model:
+### Model Performance:
 
 | Model       | AUC   | Precision | Recall |F1-score|
 |-------------|-------|-----------|--------|--------|
 | Logistic Regression | 0.723  | 0.529 | 0.763 | 0.625 |
 | Random Forest| 0.704 | 0.559 | 0.442 | 0.494 |
+
+- **Higher Discriminative Power:** Logistic Regression achieved an AUC of $0.723$, outperforming the Random Forest ($0.704$). This indicates a better overall ability to distinguish between customers who will churn and those who will stay.
+- **Superior Recall for Churn Identification:** A critical finding is the Recall of $0.763$ for Logistic Regression compared to only $0.442$ for Random Forest. In a churn context, a higher recall is vital as it means the model successfully identifies 76.3% of actual churners, allowing the marketing team to intervene before they leave.
+- **Balanced F1-Score:** The F1-score of 0.625 for Logistic Regression (vs. 0.494 for Random Forest) demonstrates a much healthier balance between Precision and Recall. While Random Forest has slightly higher Precision (0.559), it suffers from a high "false negative" rate, missing more than half of the at-risk customers.
+- **Model Selection Strategy:** Logistic Regression was selected as the production model not only for its superior predictive metrics (AUC and Recall) but also for its coefficient transparency. This allows the business to see exactly which features (like "Recency" or "Return Rate") are the strongest drivers of churn risk.
 
 ### Feature Importance
 **Monetary value** and **Frequency** are the strongest predictors of lower churn probability (negative coefficients). **Recency** is the strongest predictor of higher churn probability (positive coefficient). The Logisitic Regression Coefficients are given below:  
