@@ -191,6 +191,8 @@ Expected Value = (P(Conversion) * Marginal Revenue) - Cost of Action (Where P(Co
   
 ### Plots
 
+![Project Architecture](Model_Archi.jpg)
+```mermaid
 graph TD
     A[UCI Retail Data] --> B(Feature Engineering: RFM)
     B --> C{Churn Classifier: LogReg}
@@ -205,6 +207,8 @@ graph TD
     style H fill:#dcfce7,stroke:#166534
     style G fill:#fff2e6,stroke:#ea580c
     style E fill:#e6f2ff,stroke:#1e40af
+```
+**Description**: Model Architecture
 
 ![Plot of ROC Curve for Churn Model:](ROC.jpg) 
 
