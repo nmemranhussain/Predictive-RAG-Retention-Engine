@@ -183,13 +183,18 @@ Expected Value = (P(Conversion) * Marginal Revenue) - Cost of Action (Where P(Co
 |sms	|4.96	|3.55	|0.71|
 |email	|0.03	|0.03	|0.03|
 
-- **Scalability:** While call+coupon offers the highest individual Avg_EV ($6.23), it is restricted to a niche high-value segment. SMS+Coupon serves as the primary engine for revenue recovery, contributing $4,630.69 in total EV due to its superior scalability across the Medium and High-risk tiers.
-- **Profitability Thresholds:** High-risk customers justify higher acquisition costs ($1.85/coupon), whereas Low-risk customers are managed through high-margin, low-touch channels (Email/SMS) to prevent "margin erosion."
-- **High-Risk:** Prioritize Incentivized Outreach (sms+coupon) to mitigate the 58% churn probability.
-- **Medium-Risk:** Deploy Engagement-Focused (sms) tactics; this tier represents the best balance of recovery potential vs. cost.
-- **Low-Risk:** Maintain Passive Monitoring via email to ensure zero-cost touchpoints without cannibalizing existing high-value revenue.
-  
-### Plots
+### Strategic Impact & Model Behavior
+- **Revenue Scalability:** While 'call+coupon' offers the highest individual Avg_EV ($6.23), it is restricted to a niche, high-value segment. 'sms+coupon' serves as the primary engine for revenue recovery, contributing $4,630.69 in total EV due to its superior scalability across the Medium and High-risk tiers.
+
+- **Margin Protection & Thresholds:** The model identifies clear "Profitability Thresholds." High-risk customers justify higher acquisition costs ($1.85/coupon) to mitigate a 58% churn probability. Conversely, Low-risk customers are managed through high-margin, low-touch channels (Email) to prevent "margin erosion" and revenue cannibalization.
+
+- **High-Risk:** Prioritize Incentivized Outreach (sms+coupon) to address immediate churn threats.
+
+- **Medium-Risk:** Deploy Engagement-Focused (sms) tactics; this tier represents the optimal balance of recovery potential vs. execution cost.
+
+- **Low-Risk:** Maintain Passive Monitoring via email to ensure zero-cost touchpoints for stable revenue streams.
+
+- **Model Bias Observation:** The current LinUCB policy shows a "High-Intensity Bias" toward expensive actions. In a production environment, I would implement Cost-Aware Reward Engineering to ensure the model doesn't exhaust the marketing budget on high-touch channels.
 
 ![Project Architecture](Model_Archi.jpg)
 ```mermaid
