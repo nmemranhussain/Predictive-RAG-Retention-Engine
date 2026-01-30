@@ -17,7 +17,7 @@ This project builds an end-to-end e-commerce analytics and AI-driven decision su
 
 ## Business Problem & Solution
 **Business Problem:** Reducing Chunging rate, Improving ROI  
-**Business Solution:** Understading Dataset, Modeling & RAG, Optimization (Customer Segmentation & EV), ROI Improvement, Future opportunity.
+**Business Solution:** Understading Dataset, Modeling & RAG, Optimization (Customer Segmentation & EV), ROI Improvement.
 
 ## Understanding Dataset
 **Dataset Name & Source:** [Online Retail Dataset](https://archive.ics.uci.edu/dataset/352/online+retail)  
