@@ -75,7 +75,7 @@ The knowledge base for this RAG system is constructed from the following primary
 ### Model Type
 - **Churn Classifier:** Logistic Regression and Random Forest.
 - **Recommendation Engine:** Contextual Bandit (LinUCB) for personalized retention actions.
-- **Conversational Layer:** Retrieval-Augmented Generation (RAG) using Gemini-2.0-flash and Gemini-embedding-001.
+- **Conversational Layer:** Retrieval-Augmented Generation (RAG) using Gemini-2.5-flash and Gemini-embedding-001.
   
 ### Chunrning Model Training Methodology
 
@@ -122,11 +122,11 @@ This training data was used to fit a **Logistic Regression** model (with feature
 - **Vector Database:** ChromaDB (Version 0.6.3)for persistent storage and retrieval of semantic embeddings.
 - **Text Splitting Technology:** LangChain (Version 0.3.x)
 - **RAG Workflow:** Embedding Model: models/gemini-embedding-001.
-- **Generative Model:** models/gemini-2.0-flash.
+- **Generative Model:** models/gemini-2.5-flash.
 - **Knowledge Base Construction:** Utilized Data Linearization to transform structured RFM features and Churn Risk scores into semantically dense narratives. This ensures that the Gemini embedding model captures the logical relationship between a customer's risk profile and their historical monetary value, improving retrieval accuracy.
 - **Vector Indexing:** Documents are partitioned into 1,000-character chunks with a 20-percent (200-char) overlap. This strategy ensures that high-density RFM metrics remain contextually linked during vector retrieval.
 - **Retrieval Mechanism:** Persistent ChromaDB store using cosine similarity of embeddings.
-- **Functionality & Usage of RAG Chatbot:** The RAG Chatbot operates as an interactive analytics system that processes natural language queries by first converting them into vector embeddings via the gemini-embedding-001 model. These embeddings allow the system to perform a semantic search within a **ChromaDB vector store**, retrieving the most relevant context chunks from the e-commerce knowledge base. By dynamically merging this retrieved context with expert system instructions and the user’s original question, the chatbot constructs an augmented prompt for the **gemini-2.0-flash model** to generate a concise, fact-grounded response. This workflow is managed through a continuous conversational loop initiated by the **start_chatbot_session()** function, which maintains the interactive session until the user explicitly exits. The system utilizes 'Grounded Generation'—by strictly constraining the LLM to the retrieved ChromaDB context, we minimize the risk of 'hallucinations' regarding customer purchase history or invalid discount offers.
+- **Functionality & Usage of RAG Chatbot:** The RAG Chatbot operates as an interactive analytics system that processes natural language queries by first converting them into vector embeddings via the gemini-embedding-001 model. These embeddings allow the system to perform a semantic search within a **ChromaDB vector store**, retrieving the most relevant context chunks from the e-commerce knowledge base. By dynamically merging this retrieved context with expert system instructions and the user’s original question, the chatbot constructs an augmented prompt for the **gemini-2.5-flash model** to generate a concise, fact-grounded response. This workflow is managed through a continuous conversational loop initiated by the **start_chatbot_session()** function, which maintains the interactive session until the user explicitly exits. The system utilizes 'Grounded Generation'—by strictly constraining the LLM to the retrieved ChromaDB context, we minimize the risk of 'hallucinations' regarding customer purchase history or invalid discount offers.
 
 
 ### Version of the Modeling Software: 
@@ -205,7 +205,7 @@ graph TD
     B --> E
     E --> F[RAG Engine: Semantic Search]
     G[LinUCB Bandit Optimization] --> F
-    F --> H[Gemini 1.5 Flash]
+    F --> H[Gemini 2.5 Flash]
     H --> I[Personalized Retention Offer]
     I -.->|Reward Signal| G
     style H fill:#dcfce7,stroke:#166534
@@ -255,7 +255,7 @@ graph TD
 ### AI Disclosure & Collaboration
 - **Model Development:** Generative AI was utilized for code optimization, specifically in debugging the matrix inversions within the LinUCB contextual bandit and refining the ChromaDB batching logic.
 - **Documentation & Peer Review:** AI acted as a technical editor for this Model Card to ensure that the ROI metrics and RAG architecture are presented with professional clarity and industry-standard terminology.
-- **Grounded Generation (Safety):** The integrated chatbot uses Gemini 2.0 Flash constrained by a strict "System Instruction." It is designed for Grounded Generation, meaning it is technically prohibited from accessing external knowledge or "hallucinating" purchase histories not present in the indexed RFM documents.
+- **Grounded Generation (Safety):** The integrated chatbot uses Gemini 2.5 Flash constrained by a strict "System Instruction." It is designed for Grounded Generation, meaning it is technically prohibited from accessing external knowledge or "hallucinating" purchase histories not present in the indexed RFM documents.
 - **AI Collaboration:** This project serves as a capstone of my MSBA journey at GWU. While I authored the core logic and architecture, I utilized Gemini 2.0 Pro as a "Pair Programmer" to optimize the LinUCB matrix calculations and ensure the documentation met professional narrative standards.
 
 ### Future Work & Scalability
